@@ -8,7 +8,6 @@ package mel.server;
 import mel.common.Conversation;
 import mel.common.User;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,9 +27,9 @@ import java.util.Set;
 public class ServerConversationManager
 {
     // TODO unhardcode game save directory
-    private Map<String, ConversationFactory> name2factory = new HashMap();
-    private Map<String, ServerConversation> name2conversation = new HashMap();
-    private Set<ServerSession> sessions = new HashSet();
+    private Map<String, ConversationFactory> name2factory = new HashMap<String, ConversationFactory>();
+    private Map<String, ServerConversation> name2conversation = new HashMap<String, ServerConversation>();
+    private Set<ServerSession> sessions = new HashSet<ServerSession>();
 
     private final File dir = new File("C:/gameServer/games");
 

@@ -5,7 +5,6 @@
 
 package mel.server;
 
-import mel.common.Conversation;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 

@@ -31,8 +31,8 @@ import mel.common.MessageDispatch;
 public class BasicServerConversation implements ServerConversation
 {
     private String name;
-    private Collection<User> users = new ArrayList();
-    private Collection<Seat> seats = new ArrayList();
+    private Collection<User> users = new ArrayList<User>();
+    private Collection<Seat> seats = new ArrayList<Seat>();
     private ServerSessionManager ssm = ServerSessionManager.getServerSessionManager();
     private MessageDispatch md = new MessageDispatch();
 

@@ -50,6 +50,8 @@ public class BasicServerConversation implements ServerConversation
         sendAll(user, 'J', getType());
     }
 
+    protected void addSeat(String name) { seats.add(new Seat(name)); }
+    
     public boolean seatUser(Seat seat, User user)
     {
         seat.setUser(user);

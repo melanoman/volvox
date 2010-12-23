@@ -12,21 +12,22 @@ import java.io.PrintWriter;
  *
  * @author nicholson
  */
-public class ChatFactory implements ConversationFactory
+public class AdminConversationFactory implements ConversationFactory
 {
     public ServerConversation makeConversation(BufferedReader in, String name)
     {
-        return new BasicServerConversation(name);
+        return new AdminConversation(name);
     }
 
+    // TODO: Figure out how create conversation will work wrt saving.
+    // should things save by default?  Specify whether to how?
     public ServerConversation newSavedConversation(PrintWriter out, String name)
     {
-        // note, currently chat data is not saved
-        return new BasicServerConversation(name);
+        return new AdminConversation(name);
     }
 
     public String requireAuth()
     {
-        return "create";
+        return "admin";
     }
 }

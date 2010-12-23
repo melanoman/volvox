@@ -39,7 +39,9 @@ public class ServerMain
 
     public static void registerConversationTypes()
     {
-        scm.registerConversationType("Chat", new ChatFactory());
+        scm.registerConversationType("Admin", new AdminConversationFactory());
+        scm.registerConversationType("Chat", new ChatConversationFactory());
+        scm.registerConversationType("Fencing", new FencingConversationFactory());
     }
 
 }

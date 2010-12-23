@@ -91,6 +91,11 @@ public class LobbyConversation extends BasicServerConversation
             execute(new User(userName), content);
         }
 
+        /**
+         * 
+         * @param user
+         * @param content Syntax: "GameName:RegisteredFactoryName"
+         */
         public void execute(User user, String content)
         {
             String args[] = content.split(":", 2);

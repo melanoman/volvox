@@ -11,18 +11,27 @@ import java.util.ArrayList;
  */
 public class FencingClientModel
 {
-    private boolean side;
+    private int side;
     private int whiteHP;
     private int blackHP;
     private ArrayList<FencingClientModelListener> listeners = new ArrayList<FencingClientModelListener>();
     private Card[] card = new Card[5];
     private int whitePos;
     private int blackPos;
+    private int mode;
+    private int turn;
     public static final int STRIP_LENGTH = 23;
-    public static final boolean BLACK_SIDE = true;
-    public static final boolean WHITE_SIDE = false;
+    public static final int NO_SIDE = 0;
+    public static final int BLACK_SIDE = 0;
+    public static final int WHITE_SIDE = 1;
+    public static final int FREE_MODE = 0;
+    public static final int ATTACK_MODE = 1;
+    public static final int PAT_MODE = 2;
+    public static final int ENDATTACK_MODE = 3;
+    public static final int ENDPAT_MODE = 4;
+    public static final int GAMEOVER_MODE = 5;
     
-    public FencingClientModel(boolean side)
+    public FencingClientModel()
     {
         whiteHP=5;
         blackHP=5;
@@ -46,68 +55,13 @@ public class FencingClientModel
         }
     }
     
-    //Server Connectivity Code
-    /**
-     * Receives a message from the server, using the following encoding to store information.
-     * 
-     * bp+wp+bhp+whp+cards
-     * side = which side player is; black,white
-     * bp = Black Position; two-digit
-     * wp = White Position; two-digit
-     * bhp = Black Hit Points; single-digit
-     * whp = White Hit Points; single-digit
-     * cards = Cards in Hand; five digit (1 per card, 0=NULL_CARD)
-     * 
-     * Commands:
-     * r = reset
-     * r:<bp>:<wp>:<bhp>:<whp>:<side>:<cards>
-     * s = set
-     * s:<key>:<value>
-     */
-    public void recieve(String message)
-    {
-        String[] str = message.split(":");
-        if(str[0].equals("s")) set(str);
-        if(str[0].equals("r")) reset(str);
-    }
-    
-    public void set(String[] str)
-    {
-        if(str[1].equals("bp")) blackPos = new Integer(str[2]).intValue();
-        if(str[1].equals("wp")) whitePos = new Integer(str[2]).intValue();
-        if(str[1].equals("bhp")) blackHP = new Integer(str[2]).intValue();
-        if(str[1].equals("whp")) whiteHP = new Integer(str[2]).intValue();
-        if(str[1].equals("side")) if(str[2].equals("white")) side=WHITE_SIDE; else if(str[2].equals("black")) side=BLACK_SIDE;
-        if(str[1].equals("cards"))
-        {
-            char[] c = str[2].toCharArray();
-            for(int i = 0; i < 5; i++)
-            {
-                removeCard(i);
-                addCard(new Card(new Integer(c[i]).intValue()));
-            }
-        }
-    }
-
-    public boolean getSide()
-    {
-        return side;
-    }
-
-    public void reset(String[] str)
-    {
-        blackPos = new Integer(str[1]).intValue();
-        whitePos = new Integer(str[2]).intValue();
-        blackHP = new Integer(str[3]).intValue();
-        whiteHP = new Integer(str[4]).intValue();
-        if(str[5].equals("white")) side=WHITE_SIDE; else if(str[5].equals("black")) side=BLACK_SIDE;
-        char[] c = str[6].toCharArray();
-        for(int i = 0; i < 5; i++)
-        {
-            removeCard(i);
-            addCard(new Card(new Integer(c[i]).intValue()));
-        }
-    }
+    // TODO fire changes for setters
+    public int getMode() { return mode; }
+    public int getSide() { return side; }
+    public int getTurn() { return turn; }
+    public void setMode(int mode) { this.mode = mode; }
+    public void setSide(int side) { this.side = side; }
+    public void setTurn(int turn) { this.turn = turn; }
     
     //HandModel
     public Card getCard(int index) { return card[index]; }

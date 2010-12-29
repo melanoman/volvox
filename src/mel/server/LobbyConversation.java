@@ -6,7 +6,6 @@
 package mel.server;
 
 import mel.common.User;
-import mel.common.Command;
 import java.io.IOException;
 import mel.security.AccountManager;
 
@@ -35,27 +34,17 @@ public class LobbyConversation extends BasicServerConversation
         registerCommand('N', new CreateCommand()); // new conversation
     }
 
-    public class LeaveCommand implements Command
+    public class LeaveCommand extends AbstractCommand
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         public void execute(User user, String content)
-        {
+        {       	
             // TODO implement leave
             throw new UnsupportedOperationException("Not supported yet.");
         }
-
     }
-    public class JoinCommand implements Command
+    
+    public class JoinCommand extends AbstractCommand
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         public void execute(User user, String content)
         {
             ServerConversation c = null;
@@ -84,13 +73,8 @@ public class LobbyConversation extends BasicServerConversation
         }
     }
 
-    public class CreateCommand implements Command
+    public class CreateCommand extends AbstractCommand
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         /**
          * 
          * @param user

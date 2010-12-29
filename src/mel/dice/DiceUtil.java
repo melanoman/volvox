@@ -1,3 +1,6 @@
+/**
+ * copyright (c)2011 Mel Nicholson
+ */
 package mel.dice;
 
 public class DiceUtil

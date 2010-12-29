@@ -48,13 +48,6 @@ public class ClientSession
         singleton.out.flush();
     }
 
-    // TODO remove this test code
-    public static void flushln(String ln)
-    {
-        singleton.out.println(ln);
-        singleton.out.flush();
-    }
-
     public class ReadThread extends Thread
     {
         @Override
@@ -108,7 +101,7 @@ public class ClientSession
 
         if(opcode == 'E') 
         {
-        	JOptionPane.showMessageDialog(null, content, conversationName+" Error", JOptionPane.ERROR_MESSAGE);
+        	showError(content, conversationName+" Error");
         	return;
         }
         
@@ -150,9 +143,7 @@ public class ClientSession
             break;
         }
     }
-
-    public void showError(String message)
-    {
-        // TODO RICHARD create an error dialog
-    }
+    
+    public static void showError(String msg) { showError(msg, "Error"); }
+    public static void showError(String msg, String title) { JOptionPane.showMessageDialog(null, msg, title, JOptionPane.ERROR_MESSAGE); }
 }

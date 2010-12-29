@@ -1,11 +1,13 @@
 package fencing;
 
 import mel.common.Command;
+import mel.common.Seat;
 import mel.common.User;
 import mel.server.BasicServerConversation;
 
 public class FencingConversation extends BasicServerConversation
 {
+    private FencingServerModel model = new FencingServerModel();
 
     public FencingConversation(String name)
     {
@@ -15,16 +17,33 @@ public class FencingConversation extends BasicServerConversation
         //TODO register commands for FencingConversation
     }
     
-    public class RefreshCommand implements Command
-    {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-        
+    public class RefreshCommand extends AbstractCommand
+    {        
         public void execute(User user, String content)
         {
-            //send(User.MODERATOR, user, a, )
+            Seat seat = getSeat(user);
+            if(seat == null)
+            {
+                send(User.MODERATOR, user, 'h', "00000");
+                send(User.MODERATOR, user, 's', ""+FencingBaseModel.NO_SIDE);
+            }
+            else if(seat.getName().equalsIgnoreCase("Black"))
+            {
+                send(User.MODERATOR, user, 'h', model.getBlackCardValues());
+                send(User.MODERATOR, user, 's', ""+FencingBaseModel.BLACK_SIDE);
+            }
+            else if(seat.getName().equalsIgnoreCase("White"))
+            {
+                send(User.MODERATOR, user, 'h', model.getWhiteCardValues());
+                send(User.MODERATOR, user, 's', ""+FencingBaseModel.WHITE_SIDE);
+            }
+            
+            send(User.MODERATOR, user, 'a', ""+model.getWhiteHP());
+            send(User.MODERATOR, user, 'b', ""+model.getBlackHP());
+            
+            send(User.MODERATOR, user, 'm', ""+model.getMode());
+            send(User.MODERATOR, user, 'x', ""+model.getBlackPos());
+            send(User.MODERATOR, user, 'y', ""+model.getWhitePos());
         }
     }
     

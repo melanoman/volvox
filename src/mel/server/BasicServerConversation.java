@@ -58,6 +58,19 @@ public class BasicServerConversation implements ServerConversation
         sendAll(user, 'S', seat.getName());
         return true;
     }
+    
+    /**
+     * @param user - user whose seat is requested
+     * @return the seat of the user, or null if the user is not seated.
+     */
+    public Seat getSeat(User user)
+    {
+        for(Seat seat: seats)
+        {
+            if(seat.getUser().equals(user)) return seat;
+        }
+        return null;
+    }
 
     public Seat getSeat(String name)
     {

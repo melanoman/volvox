@@ -9,27 +9,10 @@ import java.util.ArrayList;
  * @author Charidan
  *
  */
-public class FencingClientModel
+public class FencingClientModel extends FencingBaseModel
 {
-    private int side;
-    private int whiteHP;
-    private int blackHP;
     private ArrayList<FencingClientModelListener> listeners = new ArrayList<FencingClientModelListener>();
     private Card[] card = new Card[5];
-    private int whitePos;
-    private int blackPos;
-    private int mode;
-    private int turn;
-    public static final int STRIP_LENGTH = 23;
-    public static final int NO_SIDE = 0;
-    public static final int BLACK_SIDE = 0;
-    public static final int WHITE_SIDE = 1;
-    public static final int FREE_MODE = 0;
-    public static final int ATTACK_MODE = 1;
-    public static final int PAT_MODE = 2;
-    public static final int ENDATTACK_MODE = 3;
-    public static final int ENDPAT_MODE = 4;
-    public static final int GAMEOVER_MODE = 5;
     
     public FencingClientModel()
     {
@@ -54,14 +37,6 @@ public class FencingClientModel
             card[i] = Card.NULL_CARD;
         }
     }
-    
-    // TODO fire changes for setters
-    public int getMode() { return mode; }
-    public int getSide() { return side; }
-    public int getTurn() { return turn; }
-    public void setMode(int mode) { this.mode = mode; }
-    public void setSide(int side) { this.side = side; }
-    public void setTurn(int turn) { this.turn = turn; }
     
     //HandModel
     public Card getCard(int index) { return card[index]; }
@@ -98,30 +73,21 @@ public class FencingClientModel
         }
     }
     
-    //StripModel
-    public int getWhitePos() { return whitePos; }
-    public int getBlackPos() { return blackPos; }
-    
+    //Strip Model
+    @Override
     public void setWhitePos(int whitePosition)
     {
         whitePos = whitePosition;
         fireStripChange();
     }
     
+    @Override
     public void setBlackPos(int blackPosition)
     {
         blackPos = blackPosition;
         fireStripChange();
     }
-    
-    //HitPointModel
-    public int getWhiteHP() { return whiteHP; }
-    public int getBlackHP() { return blackHP; }
-    public void setWhiteHP(int newHP) { whiteHP=newHP; }
-    public void setBlackHP(int newHP) { blackHP=newHP; }
-    public void loseWhiteHP() { whiteHP--; }
-    public void loseBlackHP() { blackHP--; }
-    
+
     public void addClientGameModelListener(FencingClientModelListener cgml)
     {
         listeners.add(cgml);

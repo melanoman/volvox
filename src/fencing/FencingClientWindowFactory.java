@@ -9,8 +9,7 @@ public class FencingClientWindowFactory implements ClientWindowFactory
     @Override
     public ClientWindow makeWindow(String conversationName)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return FencingClientWindow.makeWindow(conversationName);
     }
 
 }

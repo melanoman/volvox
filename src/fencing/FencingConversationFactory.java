@@ -1,7 +1,9 @@
-package mel.server;
+package fencing;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import mel.server.ConversationFactory;
+import mel.server.ServerConversation;
 
 public class FencingConversationFactory implements ConversationFactory
 {

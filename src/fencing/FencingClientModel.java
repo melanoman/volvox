@@ -66,6 +66,7 @@ public class FencingClientModel
     //HandModel
     public Card getCard(int index) { return card[index]; }
     public Card[] getCards() { return card; }
+    public void setCards(Card[] card) { this.card = card; }
     
     public void addCard(Card newCard) throws Error
     {

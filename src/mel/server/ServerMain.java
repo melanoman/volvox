@@ -8,6 +8,7 @@ package mel.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import fencing.FencingConversationFactory;
 import mel.security.AccountManager;
 
 /**

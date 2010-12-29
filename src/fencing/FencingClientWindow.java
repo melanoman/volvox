@@ -50,12 +50,26 @@ public class FencingClientWindow extends JFrame implements ClientWindow
         {
             case 'a': model.setWhiteHP(new Integer(message).intValue());
             case 'b': model.setBlackHP(new Integer(message).intValue());
+            case 'h': model.setCards(parseCards(message));
             case 'm': model.setMode(parseMode(message));
+            case 's': model.setSide(parseSide(message));
+            case 't': model.setTurn(parseSide(message));
             case 'x': model.setBlackPos(new Integer(message).intValue());
             case 'y': model.setWhitePos(new Integer(message).intValue());
         }
     }
 
+    private Card[] parseCards(String values)
+    {
+        Card[] card = new Card[5];
+        card[0] = new Card(new Integer(values.charAt(0)).intValue());
+        card[1] = new Card(new Integer(values.charAt(1)).intValue());
+        card[2] = new Card(new Integer(values.charAt(2)).intValue());
+        card[3] = new Card(new Integer(values.charAt(3)).intValue());
+        card[4] = new Card(new Integer(values.charAt(4)).intValue());
+        return card;
+    }
+    
     private int parseMode(String mode)
     {
         char m = mode.charAt(0);
@@ -70,6 +84,19 @@ public class FencingClientWindow extends JFrame implements ClientWindow
             default : showError("Error - Illegal value for FencingClientWindow <mode>.");
         }
         return FencingClientModel.GAMEOVER_MODE;
+    }
+    
+    private int parseSide(String side)
+    {
+        char s = side.charAt(0);
+        switch(s)
+        {
+            case 'b': return FencingClientModel.BLACK_SIDE;
+            case 'w': return FencingClientModel.WHITE_SIDE;
+            case 'n': return FencingClientModel.NO_SIDE;
+            default : showError("Error - Illegal value for FencingClientWindow <side>.");
+        }
+        return FencingClientModel.NO_SIDE;
     }
     
     public final void showError(String message)

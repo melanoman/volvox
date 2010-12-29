@@ -133,18 +133,23 @@ public class BasicServerConversation implements ServerConversation
         return null;
     }
 
-    public class ChatCommand implements Command
+    public class ChatCommand extends AbstractCommand implements Command
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         public void execute(User user, String content)
         {
             // BASIC OPCODE C = chat
             sendAll(user, 'C', content);
         }
+    }
+    
+    abstract public class AbstractCommand implements Command
+    {
+        public void execute(String userName, String content)
+        {
+            execute(new User(userName), content);
+        }
+        
+        public abstract void execute(User user, String content);
     }
 
     @Override

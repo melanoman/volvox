@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 import mel.common.User;
 
 /**
@@ -105,6 +106,12 @@ public class ClientSession
             handleSystemMessage(userName, opcode, content);
         }
 
+        if(opcode == 'E') 
+        {
+        	JOptionPane.showMessageDialog(null, content, conversationName+" Error", JOptionPane.ERROR_MESSAGE);
+        	return;
+        }
+        
         // spawn conversation window if not already open
         ClientWindow cw = WindowManager.get(conversationName);
         if(cw == null)

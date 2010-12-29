@@ -6,7 +6,6 @@
 package mel.server;
 
 import mel.common.User;
-import mel.common.Command;
 import mel.security.Account;
 import mel.security.AccountManager;
 
@@ -25,13 +24,8 @@ public class AdminConversation extends BasicServerConversation
         registerCommand('p', new SetPasswordCommand());
     }
 
-    public class CreateCommand implements Command
+    public class CreateCommand extends AbstractCommand
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         /**
          * @param user The user creating the account
          * @param content The name and password of the account, separated by a colon.
@@ -57,13 +51,8 @@ public class AdminConversation extends BasicServerConversation
         }
     }
 
-    public class GetCommand implements Command
+    public class GetCommand extends AbstractCommand
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         /**
          * @param user The user asking the question
          * @param content The name of the account to fetch
@@ -77,13 +66,8 @@ public class AdminConversation extends BasicServerConversation
     }
     
 
-    public class DeleteCommand implements Command
+    public class DeleteCommand extends AbstractCommand
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         /**
          * @param user The user performing the command
          * @param content The account name to be deleted
@@ -104,13 +88,8 @@ public class AdminConversation extends BasicServerConversation
         }
     }
 
-    public class SetPasswordCommand implements Command
+    public class SetPasswordCommand extends AbstractCommand
     {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-
         /**
          * @param user The user performing the command
          * @param content The name and password of the account, separated by a colon.
@@ -137,13 +116,8 @@ public class AdminConversation extends BasicServerConversation
         }
     }
 
-    public class addAuthCommand implements Command
-    {
-        public void execute(String userName, String content)
-        {
-            execute(new User(userName), content);
-        }
-        
+    public class addAuthCommand extends AbstractCommand
+    {   
         /**
          * @param user The user performing
          * @param content The name of the account and feature to add, separated by a colon.

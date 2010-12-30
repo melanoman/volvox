@@ -1,6 +1,5 @@
 package fencing;
 
-import mel.common.Command;
 import mel.common.Seat;
 import mel.common.User;
 import mel.server.BasicServerConversation;

@@ -8,6 +8,10 @@ import mel.client.ClientWindow;
 
 public class FencingClientWindow extends JFrame implements ClientWindow
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private FencingClientModel model = new FencingClientModel();
     
     private FencingClientWindow(String name) { super(name); }

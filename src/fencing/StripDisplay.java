@@ -14,6 +14,10 @@ import javax.swing.JPanel;
  */
 public class StripDisplay extends JPanel implements FencingClientModelListener
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private FencingClientModel cgm;
     
     public StripDisplay(FencingClientModel cgm)

@@ -15,6 +15,10 @@ import javax.swing.JPanel;
  */
 public class HandDisplay extends JPanel implements FencingClientModelListener
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     public static final int NO_HIGHLIGHT = 0;
     public static final int SELECTED_HIGHLIGHT = 1;
     private FencingClientModel cgm;

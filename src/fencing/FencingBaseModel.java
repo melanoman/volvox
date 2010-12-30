@@ -1,7 +1,5 @@
 package fencing;
 
-import java.util.ArrayList;
-
 public abstract class FencingBaseModel
 {
     public static final int STRIP_LENGTH = 23;

@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import mel.common.User;
 
@@ -83,6 +85,7 @@ public class ClientSession
         }
     }
 
+    private Set<String> noNag = new HashSet<String>();
     public void dispatchMessage(String s)
     {
         //parse user:conversation:Ocontent
@@ -105,25 +108,21 @@ public class ClientSession
         {
             handleSystemMessage(userName, opcode, content);
         }
-
-        if(opcode == 'E') 
-        {
-        	showError(content, conversationName+" Error");
-        	return;
-        }
         
         // spawn conversation window if not already open
         ClientWindow cw = WindowManager.get(conversationName);
         if(cw == null)
         {
             // cannot spawn window without type ==> ask for new join & abort
-            if(opcode != 'J')
+            if(opcode != 'J' && !noNag.contains(conversationName))
             {
+            	noNag.add(conversationName);
                 send("lobby", 'J', conversationName);
                 return;
             }
             cw = WindowManager.makeWindow(conversationName, content);
             if(cw == null) return;
+            else noNag.remove(conversationName);
         }
         // forward message to conversation window
         cw.handleMessage(userName, opcode, content);

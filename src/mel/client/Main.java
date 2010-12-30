@@ -23,7 +23,10 @@ public class Main
     private static void createClient()
     {
         // TODO connect to server (HINT: showDialog)
+        LoginDialog ld = new LoginDialog();
+        ld.setVisible(true);
         if(debug) createDebugWindow();
+        
     }
 	
     private static void createDebugWindow()

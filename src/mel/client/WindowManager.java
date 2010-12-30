@@ -1,4 +1,8 @@
+/**
+ * copyright (c)2011 Mel Nicholson
+ */
 package mel.client;
+
 
 import java.util.HashMap;
 import java.util.Map;

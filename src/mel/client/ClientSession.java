@@ -81,6 +81,7 @@ public class ClientSession
     {
         //parse user:conversation:Ocontent
         // where O is Opcode character
+        DebugWindow.recieve(s);
         String args[] = s.split(":", 3);
         if(args.length != 3 || args[2].length() < 1)
         {

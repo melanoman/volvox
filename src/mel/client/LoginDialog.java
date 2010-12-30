@@ -64,6 +64,7 @@ public class LoginDialog extends JDialog
                 Socket socket = new Socket(ipBox.getText(), ServerMain.port);
                 new ClientSession(nameBox.getText(), pwBox.getText(), socket);
                 setVisible(false);
+                if(Main.debug) Main.createDebugWindow();
                 dispose();
             }
             catch (UnknownHostException e)

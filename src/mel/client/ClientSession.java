@@ -41,10 +41,16 @@ public class ClientSession
 
         singleton = this;
     }
-
+    
     public static void send(String convName, char opcode, String content)
     {
         singleton.out.println(singleton.name + ":" + convName + ":" + opcode + content);
+        singleton.out.flush();
+    }
+    
+    public static void debugSend(String message)
+    {
+        singleton.out.println(message);
         singleton.out.flush();
     }
 

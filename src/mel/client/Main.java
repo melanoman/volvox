@@ -5,7 +5,7 @@ package mel.client;
 
 public class Main
 {
-    private static boolean debug = true;
+    static boolean debug = true;
 	
     public static void main(String arg[])
     {
@@ -25,11 +25,9 @@ public class Main
         // TODO connect to server (HINT: showDialog)
         LoginDialog ld = new LoginDialog();
         ld.setVisible(true);
-        if(debug) createDebugWindow();
-        
     }
 	
-    private static void createDebugWindow()
+    static void createDebugWindow()
     {
         DebugWindow.makeDebugWindow();
     }

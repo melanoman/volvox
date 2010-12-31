@@ -9,17 +9,7 @@ public class Main
 	
     public static void main(String arg[])
     {
-        registerWindowFactories();
         createClient();
-    }
-	
-    private static void registerWindowFactories()
-    {
-        ClientWindowManager.register("Chat", new ChatWindowFactory());
-        // TODO register lobby
-        //ClientWindowManager.register("Lobby", new LobbyWindowFactory());
-        // TODO register fencing
-        //ClientWindowManager.register("Fencing", new FencingWindowFactory());
     }
 
     private static void createClient()

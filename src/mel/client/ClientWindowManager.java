@@ -6,6 +6,7 @@ package mel.client;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /*
  * Copyright (c) 2009  Mel Nicholson.
@@ -26,14 +27,12 @@ public class ClientWindowManager
         name2factory.put(conversationType, factory);
     }
 
-    public static ClientWindow makeWindow(String conversationName, String conversationType)
+    public static ClientWindow makeWindow(String conversationName, String windowType)
     {
-        ClientWindowFactory cwf = name2factory.get(conversationType);
+        ClientWindowFactory cwf = name2factory.get(windowType);
         if(cwf==null)
         {
-            //TODO Richard make an error dialog and delete debug line
-            //showError unknown conversation type
-            System.out.println("DEBUG: unknown conversation type");
+            JOptionPane.showMessageDialog(null, "ERROR: unknown conversation type: "+windowType, "ERROR: unknown conversation type", JOptionPane.ERROR_MESSAGE);
             return null;
         }
         ClientWindow result = cwf.makeWindow(conversationName);

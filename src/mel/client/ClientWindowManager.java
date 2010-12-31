@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author nicholson
  */
-public class WindowManager
+public class ClientWindowManager
 {
     private static Map<String,ClientWindow> name2window = new HashMap<String,ClientWindow>();
     private static Map<String,ClientWindowFactory> name2factory = new HashMap<String,ClientWindowFactory>();

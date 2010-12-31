@@ -10,19 +10,20 @@ public class Main
     public static void main(String arg[])
     {
         registerWindowFactories();
-	createClient();
+        createClient();
     }
 	
     private static void registerWindowFactories()
     {
-        // TODO register chat
+        ClientWindowManager.register("Chat", new ChatWindowFactory());
         // TODO register lobby
+        //ClientWindowManager.register("Lobby", new LobbyWindowFactory());
         // TODO register fencing
+        //ClientWindowManager.register("Fencing", new FencingWindowFactory());
     }
 
     private static void createClient()
     {
-        // TODO connect to server (HINT: showDialog)
         LoginDialog ld = new LoginDialog();
         ld.setVisible(true);
     }

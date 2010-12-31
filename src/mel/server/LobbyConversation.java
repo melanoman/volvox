@@ -53,7 +53,7 @@ public class LobbyConversation extends BasicServerConversation
                 c = master.loadConversation(content);
             } catch (IOException ex)
             {
-                sendError(user, ex.getMessage());
+                sendError(user, "Error Loading conversation: "+ex);
                 return;
             }
             if (c == null)

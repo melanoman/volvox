@@ -24,7 +24,7 @@ public class MessageDispatch
 
     public void registerCommand(char opcode, Command command)
     {
-        // TODO raise warning for reuse of opcodes
+        // TODO raise warning for reuse of opcodes or allow multiples?
         opcode2command.put(String.valueOf(opcode), command);
     }
 
@@ -36,5 +36,12 @@ public class MessageDispatch
     public Command getCommand(char opcode)
     {
         return getCommand(String.valueOf(opcode));
+    }
+    
+    public void executeCommand(String userName, char opcode, String content)
+    {
+    	Command c = getCommand(opcode);
+    	if(c == null) System.err.println("Unknown opcode: "+opcode); // TODO throw exception
+    	else c.execute(userName, content);
     }
 }

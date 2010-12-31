@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import mel.common.Command;
+import mel.common.MessageDispatch;
 
 public class ChatPanel extends JPanel
 {
@@ -15,8 +17,9 @@ public class ChatPanel extends JPanel
 	private JTextField input = new JTextField(40);
 	private JTextArea display = new JTextArea("", 40, 10);
 	
-    public ChatPanel()
+    public ChatPanel(MessageDispatch md)
     {
+    	md.registerCommand('C', new ChatCommand());
     	setLayout(new BorderLayout());
     	display.setEditable(false);
     	JScrollPane scroll = new JScrollPane(display);
@@ -33,6 +36,15 @@ public class ChatPanel extends JPanel
 		{
 			// TODO report back to window
 		}
-    	
     }
+	
+	public class ChatCommand implements Command 
+	{
+		@Override
+		public void execute(String userName, String content)
+		{
+			display.append("["+userName+"] "+content);
+			display.setCaretPosition(display.getText().length()-1);
+		}	
+	}
 }

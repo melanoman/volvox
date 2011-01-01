@@ -51,7 +51,6 @@ public class ServerConversationManager
             throws IOException
     {
         File f = new File(dir, name+".gsf");
-        System.out.println(""+f+(f.exists()?" exists":" does not exist"));
         if(f.exists()) throw new IOException("Conversation already exists");
         ConversationFactory cf = name2factory.get(type);
         if(cf == null) throw new IOException("Unknown Conversation type");

@@ -5,13 +5,18 @@ package mel.client;
 
 /**
  * @author nicholson
- *
+ * 
  */
 public class ChatWindowFactory implements ClientWindowFactory
 {
-	@Override
-	public ClientWindow makeWindow(String conversationName)
-	{
-		return new ChatWindow(conversationName);
-	}
+    static
+    {
+        ClientWindowManager.register("Chat", new ChatWindowFactory());
+    }
+
+    @Override
+    public ClientWindow makeWindow(String conversationName)
+    {
+        return new ChatWindow(conversationName);
+    }
 }

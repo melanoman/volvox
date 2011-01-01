@@ -110,7 +110,7 @@ public class ClientSession
         }
         
         // spawn conversation window if not already open
-        ClientWindow cw = WindowManager.get(conversationName);
+        ClientWindow cw = ClientWindowManager.get(conversationName);
         if(cw == null)
         {
             // cannot spawn window without type ==> ask for new join & abort
@@ -120,7 +120,7 @@ public class ClientSession
                 send("lobby", 'J', conversationName);
                 return;
             }
-            cw = WindowManager.makeWindow(conversationName, content);
+            cw = ClientWindowManager.makeWindow(conversationName, content);
             if(cw == null) return;
             else noNag.remove(conversationName);
         }

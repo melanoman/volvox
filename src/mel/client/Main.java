@@ -9,20 +9,11 @@ public class Main
 	
     public static void main(String arg[])
     {
-        registerWindowFactories();
-	createClient();
-    }
-	
-    private static void registerWindowFactories()
-    {
-        // TODO register chat
-        // TODO register lobby
-        // TODO register fencing
+        createClient();
     }
 
     private static void createClient()
     {
-        // TODO connect to server (HINT: showDialog)
         LoginDialog ld = new LoginDialog();
         ld.setVisible(true);
     }

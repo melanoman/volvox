@@ -13,6 +13,7 @@ public class UserPanel extends JList
 {
 	private static final long serialVersionUID = 1L;
     private DefaultListModel lm = new DefaultListModel();
+    
 	public UserPanel(MessageDispatch md)
 	{
 	    setModel(lm);

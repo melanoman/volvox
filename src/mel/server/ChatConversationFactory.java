@@ -21,7 +21,12 @@ public class ChatConversationFactory implements ConversationFactory
 
     public ServerConversation newSavedConversation(PrintWriter out, String name)
     {
-        // note, currently chat data is not saved
+        // TODO actually load and save data for reviving recorded Chat conversations
+        return new BasicServerConversation(name);
+    }
+    
+    public ServerConversation newUnsavedConversation(String name)
+    {
         return new BasicServerConversation(name);
     }
 

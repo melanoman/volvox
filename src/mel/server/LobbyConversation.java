@@ -31,7 +31,8 @@ public class LobbyConversation extends BasicServerConversation
         this.master = master;
         registerCommand('J', new JoinCommand());
         registerCommand('L', new LeaveCommand());
-        registerCommand('N', new CreateCommand()); // new conversation
+        registerCommand('N', new CreateSavedConversationCommand());
+        registerCommand('C', new CreateUnsavedConversationCommand());
     }
 
     public class LeaveCommand extends AbstractCommand
@@ -73,7 +74,7 @@ public class LobbyConversation extends BasicServerConversation
         }
     }
 
-    public class CreateCommand extends AbstractCommand
+    public class CreateSavedConversationCommand extends AbstractCommand
     {
         /**
          * 
@@ -82,36 +83,20 @@ public class LobbyConversation extends BasicServerConversation
          */
         public void execute(User user, String content)
         {
-            String args[] = content.split(":", 2);
-            if(args.length != 2)
-            {
-                sendError(user, "Syntax Error");
-                return;
-            }
-
-            ConversationFactory f = master.getConversationFactory(args[1]);
-            if(f==null)
-            {
-                sendError(user, "Unknown Conversation type");
-                return;
-            }
-            String auth = f.requireAuth();
-            if (!AccountManager.getAccountManager().isAuthorized(user, auth))
-            {
-                sendError(user, "Permission Denied");
-                return;
-            }
-
-            try
-            {
-                master.createSavableConversation(args[0], args[1]);
-            } catch (IOException ex)
-            {
-                sendError(user, ex.getMessage());
-                ex.printStackTrace();
-            }
-
-            sendAll(User.MODERATOR, 'A', args[0]+":"+args[1]);
+            createConversation(user, content, true);
+        }
+    }
+    
+    public class CreateUnsavedConversationCommand extends AbstractCommand
+    {
+        /**
+         * 
+         * @param user
+         * @param content Syntax: "GameName:RegisteredFactoryName"
+         */
+        public void execute(User user, String content)
+        {
+            createConversation(user, content, false);
         }
     }
 
@@ -121,6 +106,37 @@ public class LobbyConversation extends BasicServerConversation
         return null;
     }
 
+    private void createConversation(User user, String content, boolean saved)
+    {
+        String args[] = content.split(":", 2);
+        if(args.length != 2)
+        {
+            sendError(user, "Syntax Error");
+            return;
+        }
+
+        ConversationFactory f = master.getConversationFactory(args[1]);
+        if(f==null)
+        {
+            sendError(user, "Unknown Conversation type");
+            return;
+        }
+        String auth = f.requireAuth();
+        if (!AccountManager.getAccountManager().isAuthorized(user, auth))
+        {
+            sendError(user, "Permission Denied");
+            return;
+        }
+
+        try
+        {
+            master.createConversation(args[0], args[1], saved);
+            sendAll(User.MODERATOR, 'A', args[0]+":"+args[1]);
+        } catch (IOException ex)
+        {
+            sendError(user, ex.getMessage());
+        }   
+    }
     @Override
     public String getType() { return "Lobby"; }
 }

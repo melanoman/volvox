@@ -7,7 +7,6 @@ import mel.server.ServerConversation;
 
 public class FencingConversationFactory implements ConversationFactory
 {
-
     @Override
     public ServerConversation makeConversation(BufferedReader in, String name)
     {
@@ -18,6 +17,12 @@ public class FencingConversationFactory implements ConversationFactory
     public ServerConversation newSavedConversation(PrintWriter out, String name)
     {
         // TODO find a way to load conversations
+        return new FencingConversation(name);
+    }
+    
+    @Override
+    public ServerConversation newUnsavedConversation(String name)
+    {
         return new FencingConversation(name);
     }
 

@@ -3,6 +3,8 @@
  */
 package mel.client;
 
+import fencing.FencingClientWindowFactory;
+
 public class Main
 {
     static boolean debug = true;
@@ -10,6 +12,14 @@ public class Main
     public static void main(String arg[])
     {
         createClient();
+        registerConversationTypes();
+    }
+    
+    private static void registerConversationTypes()
+    {
+        // TODO register LobbyWindowFactory
+        ClientWindowManager.register("Chat", new ChatWindowFactory());
+        ClientWindowManager.register("Fencing", new FencingClientWindowFactory());
     }
 
     private static void createClient()

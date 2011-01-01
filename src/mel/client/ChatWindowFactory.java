@@ -9,11 +9,6 @@ package mel.client;
  */
 public class ChatWindowFactory implements ClientWindowFactory
 {
-    static
-    {
-        ClientWindowManager.register("Chat", new ChatWindowFactory());
-    }
-
     @Override
     public ClientWindow makeWindow(String conversationName)
     {

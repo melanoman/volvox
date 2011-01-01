@@ -9,7 +9,6 @@ import mel.common.Conversation;
 import mel.common.User;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,18 +47,35 @@ public class ServerConversationManager
         return name2factory.get(type);
     }
 
-    synchronized public void createSavableConversation(String name, String type)
+    synchronized public void createConversation(String name, String type, boolean saved)
             throws IOException
     {
         File f = new File(dir, name+".gsf");
+        System.out.println(""+f+(f.exists()?" exists":" does not exist"));
         if(f.exists()) throw new IOException("Conversation already exists");
         ConversationFactory cf = name2factory.get(type);
         if(cf == null) throw new IOException("Unknown Conversation type");
-        PrintWriter out = new PrintWriter(new FileWriter(f));
-        out.println(type);
-        ServerConversation c = cf.newSavedConversation(out, name);
-        name2conversation.put(name, c);
-        out.close();
+        
+        if(saved)
+        {
+            PrintWriter out = null;
+            try
+            {
+               out = new PrintWriter(new FileWriter(f));
+               ServerConversation c = cf.newSavedConversation(out, name);
+               name2conversation.put(name, c);
+               out.close(); 
+            }
+            catch(IOException e)
+            {
+                if (out != null) out.close();
+                throw e;
+            }
+        }
+        else {
+            ServerConversation c = cf.newUnsavedConversation(name);
+            name2conversation.put(name, c);
+        }
     }
 
     /**
@@ -72,7 +88,8 @@ public class ServerConversationManager
 
     /**
      * Get a conversation from disk unless it has already been loaded,
-     * in which case just return it.
+     * in which case just return it.  If there is no such conversation, 
+     * return null.
      */
     synchronized protected ServerConversation loadConversation(String name)
             throws IOException
@@ -80,7 +97,7 @@ public class ServerConversationManager
         ServerConversation c = getConversation(name);
         if(c != null) return c;
         File f = new File(dir, name+".gsf");
-        if(!f.exists()) throw new FileNotFoundException();
+        if(!f.exists()) return null;
         BufferedReader in = new BufferedReader(new FileReader(f));
         String controllerType = in.readLine();
 

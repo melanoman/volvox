@@ -6,6 +6,7 @@
 package mel.server;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -14,7 +15,8 @@ import java.io.PrintWriter;
  */
 public interface ConversationFactory
 {
-    public ServerConversation makeConversation(BufferedReader in, String name);
-    public ServerConversation newSavedConversation(PrintWriter out, String name);
+    public ServerConversation makeConversation(BufferedReader in, String name) throws IOException;
+    public ServerConversation newSavedConversation(PrintWriter out, String name) throws IOException;
+    public ServerConversation newUnsavedConversation(String name) throws IOException;
     public String requireAuth();
 }

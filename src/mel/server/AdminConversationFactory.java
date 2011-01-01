@@ -6,6 +6,7 @@
 package mel.server;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -19,11 +20,14 @@ public class AdminConversationFactory implements ConversationFactory
         return new AdminConversation(name);
     }
 
-    // TODO: Figure out how create conversation will work wrt saving.
-    // should things save by default?  Specify whether to how?
     public ServerConversation newSavedConversation(PrintWriter out, String name)
     {
         return new AdminConversation(name);
+    }
+    
+    public ServerConversation newUnsavedConversation(String name) throws IOException
+    {
+        throw new IOException("Admin conversations must be audited");
     }
 
     public String requireAuth()

@@ -44,5 +44,4 @@ public class ClientWindowManager
     {
         return name2window.get(conversationName);
     }
-
 }

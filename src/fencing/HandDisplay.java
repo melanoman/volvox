@@ -57,7 +57,8 @@ public class HandDisplay extends JPanel implements FencingClientModelListener
             cardHeight = cardWidth*5/3;
             cardTop = cardWidth/3;
         }
-        int buttonHeight = cardTop*3/5;
+        //TODO use buttonHeight for something.
+        //int buttonHeight = cardTop*3/5;
         
         g.setColor(Color.BLACK);
         for(int i = 0; i < 5; i++)

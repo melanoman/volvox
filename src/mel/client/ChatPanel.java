@@ -47,7 +47,7 @@ public class ChatPanel extends JPanel
         @Override
         public void execute(String userName, String content)
         {
-            display.append("[" + userName + "] " + content);
+            display.append("[" + userName + "] " + content+"\n");
             display.setCaretPosition(display.getText().length() - 1);
         }
     }

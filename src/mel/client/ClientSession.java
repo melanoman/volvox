@@ -120,9 +120,12 @@ public class ClientSession
                 send("lobby", 'J', conversationName);
                 return;
             }
-            cw = ClientWindowManager.makeWindow(conversationName, content);
-            if(cw == null) return;
-            else noNag.remove(conversationName);
+            else
+            {
+                cw = ClientWindowManager.makeWindow(conversationName, content);
+                if(cw == null) return;
+                else noNag.remove(conversationName);
+            }
         }
         // forward message to conversation window
         cw.handleMessage(userName, opcode, content);

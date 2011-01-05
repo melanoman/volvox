@@ -60,6 +60,7 @@ public class LobbyConversation extends BasicServerConversation
             if (c == null)
             {
                 sendError(user, "No such conversation");
+                return;
             }
             String auth = c.requireAuth();
             if (auth != null)

@@ -32,7 +32,7 @@ public class LobbyConversation extends BasicServerConversation
         registerCommand('J', new JoinCommand());
         registerCommand('L', new LeaveCommand());
         registerCommand('N', new CreateSavedConversationCommand());
-        registerCommand('C', new CreateUnsavedConversationCommand());
+        registerCommand('U', new CreateUnsavedConversationCommand());
     }
 
     public class LeaveCommand extends AbstractCommand

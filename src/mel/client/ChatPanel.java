@@ -13,38 +13,42 @@ import mel.common.MessageDispatch;
 
 public class ChatPanel extends JPanel
 {
-	private static final long serialVersionUID = 1L;
-	private JTextField input = new JTextField(40);
-	private JTextArea display = new JTextArea("", 40, 10);
-	
-    public ChatPanel(MessageDispatch md)
+    private static final long serialVersionUID = 1L;
+    private final JTextField input = new JTextField(40);
+    private final JTextArea display = new JTextArea("", 40, 10);
+    private final String convName;
+
+    public ChatPanel(MessageDispatch md, String conversationName)
     {
-    	md.registerCommand('C', new ChatCommand());
-    	setLayout(new BorderLayout());
-    	display.setEditable(false);
-    	JScrollPane scroll = new JScrollPane(display);
-    	scroll.setPreferredSize(new Dimension(200,50));
-    	add(display, BorderLayout.CENTER);
-    	add(input, BorderLayout.SOUTH);
-    	input.addActionListener(new ChatSender());
+        convName = conversationName;
+        md.registerCommand('C', new ChatCommand());
+        setLayout(new BorderLayout());
+        display.setEditable(false);
+        JScrollPane scroll = new JScrollPane(display);
+        scroll.setPreferredSize(new Dimension(200, 50));
+        add(display, BorderLayout.CENTER);
+        add(input, BorderLayout.SOUTH);
+        input.addActionListener(new ChatSender());
     }
-    
+
     class ChatSender implements ActionListener
     {
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			// TODO report back to window
-		}
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            // TODO report back to window
+            ClientSession.send(convName, 'C', input.getText());
+            input.setText("");
+        }
     }
-	
-	public class ChatCommand implements Command 
-	{
-		@Override
-		public void execute(String userName, String content)
-		{
-			display.append("["+userName+"] "+content);
-			display.setCaretPosition(display.getText().length()-1);
-		}	
-	}
+
+    public class ChatCommand implements Command
+    {
+        @Override
+        public void execute(String userName, String content)
+        {
+            display.append("[" + userName + "] " + content);
+            display.setCaretPosition(display.getText().length() - 1);
+        }
+    }
 }

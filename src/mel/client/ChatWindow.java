@@ -11,10 +11,12 @@ public class ChatWindow extends JFrame implements ClientWindow
     private final MessageDispatch md = new MessageDispatch();
     private final ChatPanel chat;
     private final UserPanel users = new UserPanel(md);
+    private final String convName;
 
     public ChatWindow(String name)
     {
         super(name);
+        convName = name;
         chat = new ChatPanel(md, name);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(chat, BorderLayout.CENTER);
@@ -30,6 +32,12 @@ public class ChatWindow extends JFrame implements ClientWindow
         md.executeCommand(userName, opcode, message);
     }
 
+    @Override
+    public void init()
+    {
+        ClientSession.send(convName, 'R', "");
+    }
+    
     public void registerCommand(char opcode, Command command)
     {
         md.registerCommand(opcode, command);

@@ -15,6 +15,7 @@ import mel.common.User;
  */
 public interface ServerConversation extends Conversation
 {
+    public String getType();
     /**
      * @return "create" if no special permission is required, or the feature
      * name if special permission is required to create this conversation

@@ -10,6 +10,7 @@ import mel.common.User;
 import mel.common.Command;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import mel.common.MessageDispatch;
 
 /**
@@ -31,7 +32,7 @@ import mel.common.MessageDispatch;
 public class BasicServerConversation implements ServerConversation
 {
     private String name;
-    private Collection<User> users = new ArrayList<User>();
+    private Collection<User> users = new HashSet<User>();
     private Collection<Seat> seats = new ArrayList<Seat>();
     private ServerSessionManager ssm = ServerSessionManager.getServerSessionManager();
     private MessageDispatch md = new MessageDispatch();
@@ -40,6 +41,7 @@ public class BasicServerConversation implements ServerConversation
     {
         this.name = name;
         registerCommand('C', new ChatCommand());
+        registerCommand('R', new RefreshCommand());
     }
 
     public String getName() { return name; }
@@ -145,6 +147,13 @@ public class BasicServerConversation implements ServerConversation
     {
         return null;
     }
+    
+    /**
+     * Intentionally blank, this is intended to be overridden.
+     * It is called as part of the RefreshCommand.
+     * @param u
+     */
+    public void refreshState(User u) {}
 
     public class ChatCommand extends AbstractCommand implements Command
     {
@@ -152,6 +161,19 @@ public class BasicServerConversation implements ServerConversation
         {
             // BASIC OPCODE C = chat
             sendAll(user, 'C', content);
+        }
+    }
+    
+    public class RefreshCommand extends AbstractCommand
+    {
+        @Override
+        public void execute(User user, String content)
+        {
+            for(User u: users)
+            {
+                send(u, user, 'J', getType());
+            }
+            refreshState(user);
         }
     }
     

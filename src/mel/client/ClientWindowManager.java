@@ -37,6 +37,7 @@ public class ClientWindowManager
         }
         ClientWindow result = cwf.makeWindow(conversationName);
         name2window.put(conversationName, result);
+        result.init();
         return result;
     }
 

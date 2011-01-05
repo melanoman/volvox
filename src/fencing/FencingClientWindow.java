@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import mel.client.ClientSession;
 import mel.client.ClientWindow;
 
 public class FencingClientWindow extends JFrame implements ClientWindow
@@ -12,9 +13,14 @@ public class FencingClientWindow extends JFrame implements ClientWindow
      * 
      */
     private static final long serialVersionUID = 1L;
-    private FencingClientModel model = new FencingClientModel();
+    private final FencingClientModel model = new FencingClientModel();
+    private final String convName;
     
-    private FencingClientWindow(String name) { super(name); }
+    private FencingClientWindow(String name)
+    {
+        super(name);
+        convName = name;
+    }
     
     public static FencingClientWindow makeWindow(String conversationName)
     {
@@ -72,6 +78,12 @@ public class FencingClientWindow extends JFrame implements ClientWindow
         card[3] = new Card(new Integer(values.charAt(3)).intValue());
         card[4] = new Card(new Integer(values.charAt(4)).intValue());
         return card;
+    }
+    
+    @Override
+    public void init()
+    {
+        ClientSession.send(convName, 'R', "");
     }
     
     private int parseMode(String mode)

@@ -12,4 +12,5 @@ package mel.client;
 public interface ClientWindow
 {
     public void handleMessage(String userName, char opcode, String message);
+    public void init();
 }

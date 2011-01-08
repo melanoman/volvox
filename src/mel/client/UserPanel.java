@@ -2,8 +2,6 @@
 
 package mel.client;
 
-import java.text.Collator;
-import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;

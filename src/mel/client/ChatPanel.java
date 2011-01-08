@@ -36,7 +36,6 @@ public class ChatPanel extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            // TODO report back to window
             ClientSession.send(convName, 'C', input.getText());
             input.setText("");
         }

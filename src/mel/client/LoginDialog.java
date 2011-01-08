@@ -37,10 +37,13 @@ public class LoginDialog extends JDialog
         
         add(new JLabel("Username:"), startline);
         add(nameBox, endline);
+        nameBox.addActionListener(new NameListener());
         add(new JLabel("Password:"), startline);
         add(pwBox, endline);
+        pwBox.addActionListener(new PWListener());
         add(new JLabel("Host Address:"), startline);
         add(ipBox, endline);
+        ipBox.addActionListener(new IPListener());
         
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(okButton);
@@ -59,23 +62,28 @@ public class LoginDialog extends JDialog
         @Override
         public void actionPerformed(ActionEvent evt)
         {
-            try
-            {
-                Socket socket = new Socket(ipBox.getText(), ServerMain.port);
-                new ClientSession(nameBox.getText(), pwBox.getText(), socket);
-                setVisible(false);
-                if(Main.debug) Main.createDebugWindow();
-                dispose();
-            }
-            catch (UnknownHostException e)
-            {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Unknown Host", JOptionPane.ERROR_MESSAGE);
-            }
-            catch (IOException e)
-            {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "IOException", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
+            connect();
+        }
+    }
+    
+    private void connect()
+    {
+        try
+        {
+            Socket socket = new Socket(ipBox.getText(), ServerMain.port);
+            new ClientSession(nameBox.getText(), pwBox.getText(), socket);
+            setVisible(false);
+            if(Main.debug) Main.createDebugWindow();
+            dispose();
+        }
+        catch (UnknownHostException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Unknown Host", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (IOException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "IOException", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
     }
     
@@ -85,6 +93,34 @@ public class LoginDialog extends JDialog
         public void actionPerformed(ActionEvent evt)
         {
             System.exit(0);
+        }
+    }
+    
+    class NameListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent evt)
+        {
+            pwBox.grabFocus();
+        }
+    }
+    
+    class PWListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent evt)
+        {
+            ipBox.selectAll();
+            ipBox.grabFocus();
+        }
+    }
+    
+    class IPListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent evt)
+        {
+            connect();
         }
     }
 }

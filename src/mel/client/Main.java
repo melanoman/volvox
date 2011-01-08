@@ -17,8 +17,8 @@ public class Main
     
     private static void registerConversationTypes()
     {
-        // TODO register LobbyWindowFactory
         ClientWindowManager.register("Chat", new ChatWindowFactory());
+        ClientWindowManager.register("Lobby", new LobbyWindowFactory());
         ClientWindowManager.register("Fencing", new FencingClientWindowFactory());
     }
 

@@ -2,17 +2,15 @@
 
 package mel.client;
 
-import java.util.TreeSet;
-import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import mel.common.MessageDispatch;
 import mel.common.Command;
+import mel.common.SortedListModel;
 
 public class UserPanel extends JList
 {
     private static final long serialVersionUID = 1L;
-    private DefaultListModel lm = new DefaultListModel();
-    private TreeSet<String> users = new TreeSet<String>();
+    private SortedListModel<String> lm = new SortedListModel<String>();
 
     public UserPanel(MessageDispatch md)
     {
@@ -20,16 +18,12 @@ public class UserPanel extends JList
         md.registerCommand('J', new JoinCommand());
         // TODO add infrastucture for displaying seats and who is in them
         // maybe change this to a JPanel with seats at top and list of others
-        // below
+        // below -- maybe make that a SeatPanel instead
     }
 
     public void join(String userName)
     {
-        if(users.add(userName))
-        {
-            // TODO find the position in the TreeSet to sort the visible list
-            lm.addElement(userName);
-        }
+        lm.add(userName);
     }
     
     public class JoinCommand implements Command

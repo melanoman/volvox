@@ -12,12 +12,13 @@ public class LobbyWindow extends JFrame implements ClientWindow
     private final MessageDispatch md = new MessageDispatch();
     private final ChatPanel chat;
     private final UserPanel users = new UserPanel(md);
-    private final ConversationPanel convs = new ConversationPanel(md);
+    private final ConversationPanel convs;
     
     public LobbyWindow(String name)
     {
         super(name);
         chat = new ChatPanel(md, name);
+        convs = new ConversationPanel(md,name);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(chat, BorderLayout.CENTER);
         getContentPane().add(users, BorderLayout.EAST);
